@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react"
 import useSWR from "swr"
+import useSWRMutation from "swr/mutation"
 import { sendMessage } from "webext-bridge"
 import browser from "webextension-polyfill"
 
@@ -11,6 +12,47 @@ function IndexPopup() {
   })
   const [checkState, setCheckState] = useState<Record<number, boolean>>({})
   const [search, setSearch] = useState("")
+  const { data: { syncTabIds = [] } = {}, mutate: mutateSyncTabs } = useSWR(
+    "syncState",
+    async () => {
+      return sendMessage("getState", undefined, "background")
+    },
+    {
+      onSuccess: (data) => {
+        setCheckState(
+          data.syncTabIds.reduce((acc, id) => ({ ...acc, [id]: true }), {})
+        )
+      }
+    }
+  )
+
+  const { trigger: stopSync, isMutating } = useSWRMutation(
+    "stopSync",
+    async () => {
+      return sendMessage("stopSync", undefined, "background")
+    },
+    {
+      onSuccess: () => {
+        mutateSyncTabs()
+      }
+    }
+  )
+
+  const { trigger: startSync, isMutating: isSyncing } = useSWRMutation(
+    "startSync",
+    async () => {
+      const tabIds = Object.keys(checkState)
+        .filter((id) => checkState[Number(id)])
+        .map(Number)
+
+      return sendMessage("startSync", { tabIds }, "background")
+    },
+    {
+      onSuccess: () => {
+        mutateSyncTabs()
+      }
+    }
+  )
 
   const handleCheck = useCallback((id: number) => {
     setCheckState((prev) => ({ ...prev, [id]: !prev[id] }))
@@ -78,21 +120,26 @@ function IndexPopup() {
         })}
       </div>
 
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={() => {
-          sendMessage(
-            "startSync",
-            {
-              tabIds: Object.keys(checkState)
-                .filter((id) => checkState[Number(id)])
-                .map(Number)
-            },
-            "background"
-          )
-        }}>
-        Sync
-      </button>
+      {/* Control buttons */}
+      <div className="flex justify-center">
+        {syncTabIds.length === 0 && (
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-1"
+            onClick={startSync}
+            disabled={isSyncing}>
+            {isSyncing ? "Syncing..." : "Sync"}
+          </button>
+        )}
+
+        {syncTabIds.length > 0 && (
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex-1"
+            onClick={stopSync}
+            disabled={isMutating}>
+            {isMutating ? "Breaking..." : "Break"}
+          </button>
+        )}
+      </div>
     </div>
   )
 }

@@ -35,10 +35,11 @@ onMessage("startSync", (message) => {
 
 onMessage("stopSync", (message) => {
   const state = store.getState()
+  const tabIds = state.syncTabIds
 
-  const { tabIds = [] } = message.data
-  state.setSyncTabIds([])
   stopSyncForTabs(tabIds)
+
+  state.setSyncTabIds([])
 })
 
 onMessage("syncScrollPosition", (message) => {
@@ -46,9 +47,6 @@ onMessage("syncScrollPosition", (message) => {
   const senderTabId = message.sender.tabId
 
   const { scrollYPercent } = message.data
-
-  console.log("syncScrollPosition", scrollYPercent)
-  console.log("senderTabId", senderTabId)
 
   const otherTabs = state.syncTabIds.filter((tabId) => tabId !== senderTabId)
 
@@ -62,4 +60,12 @@ onMessage("syncScrollPosition", (message) => {
       }
     )
   })
+})
+
+onMessage("getState", () => {
+  const state = store.getState()
+
+  return {
+    syncTabIds: state.syncTabIds
+  }
 })
