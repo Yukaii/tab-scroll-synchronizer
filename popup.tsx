@@ -12,7 +12,10 @@ function IndexPopup() {
   })
   const [checkState, setCheckState] = useState<Record<number, boolean>>({})
   const [search, setSearch] = useState("")
-  const { data: { syncTabIds = [] } = {}, mutate: mutateSyncTabs } = useSWR(
+  const {
+    data: { syncTabIds = [], recentTabIds = [] } = {},
+    mutate: mutateSyncTabs
+  } = useSWR(
     "syncState",
     async () => {
       return sendMessage("getState", undefined, "background")
@@ -58,10 +61,30 @@ function IndexPopup() {
     setCheckState((prev) => ({ ...prev, [id]: !prev[id] }))
   }, [])
 
-  const tabs = useMemo(() => {
-    if (!search) return rawTabs
+  const recentTabId = recentTabIds[1]
+  const recentTab = rawTabs.find((tab) => tab.id === recentTabId)
+  const recentTabDomain = recentTab ? new URL(recentTab.url).hostname : ""
 
-    return rawTabs.filter((tab) => {
+  const sorter = useCallback(
+    (a: browser.Tabs.Tab, b: browser.Tabs.Tab) => {
+      if (a.id === recentTabId) return -1
+      if (b.id === recentTabId) return 1
+
+      const aDomain = new URL(a.url).hostname
+      const bDomain = new URL(b.url).hostname
+
+      if (aDomain === recentTabDomain) return -1
+      if (bDomain === recentTabDomain) return 1
+
+      return 0
+    },
+    [recentTabId, recentTabDomain]
+  )
+
+  const tabs = useMemo(() => {
+    if (!search) return rawTabs.sort(sorter)
+
+    return rawTabs.sort(sorter).filter((tab) => {
       return (
         tab.title?.toLowerCase().includes(search.toLowerCase()) ||
         tab.url?.toLowerCase().includes(search.toLowerCase()) ||
@@ -69,7 +92,7 @@ function IndexPopup() {
         checkState[tab.id]
       )
     })
-  }, [rawTabs, search])
+  }, [rawTabs, search, checkState, sorter])
 
   // Get sync state from background
 
@@ -100,7 +123,7 @@ function IndexPopup() {
         {tabs.map((tab) => {
           return (
             <label key={tab.id} onClick={() => handleCheck(tab.id)}>
-              <div className="w-full flex py-1 hover:bg-slate-300 px-1">
+              <div className="w-full flex py-1 hover:bg-zinc-100 px-1">
                 <input
                   type="checkbox"
                   className="mr-2"

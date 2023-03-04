@@ -1,4 +1,5 @@
-import { isInternalEndpoint, onMessage, sendMessage } from "webext-bridge"
+import { onMessage, sendMessage } from "webext-bridge"
+import browser from "webextension-polyfill"
 
 import { store } from "./store"
 
@@ -62,10 +63,22 @@ onMessage("syncScrollPosition", (message) => {
   })
 })
 
+let maxRecentTabs = 3
+let recentTabIds: number[] = []
+
+browser.tabs.onActivated.addListener(function (activeInfo) {
+  const { tabId } = activeInfo
+
+  console.log("onActivated", tabId)
+
+  recentTabIds = [tabId, ...recentTabIds].slice(0, maxRecentTabs)
+})
+
 onMessage("getState", () => {
   const state = store.getState()
 
   return {
-    syncTabIds: state.syncTabIds
+    syncTabIds: state.syncTabIds,
+    recentTabIds
   }
 })

@@ -24,6 +24,7 @@ declare module "webext-bridge" {
       void,
       {
         syncTabIds: number[]
+        recentTabIds: number[]
       }
     >
   }
