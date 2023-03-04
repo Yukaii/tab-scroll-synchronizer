@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react"
 import useSWR from "swr"
+import { sendMessage } from "webext-bridge"
 import browser from "webextension-polyfill"
 
 import "./style.css"
@@ -77,7 +78,19 @@ function IndexPopup() {
         })}
       </div>
 
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={() => {
+          sendMessage(
+            "startSync",
+            {
+              tabIds: Object.keys(checkState)
+                .filter((id) => checkState[Number(id)])
+                .map(Number)
+            },
+            "background"
+          )
+        }}>
         Sync
       </button>
     </div>

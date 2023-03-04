@@ -1,14 +1,15 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@plasmohq/messaging': ^0.1.4
   '@plasmohq/prettier-plugin-sort-imports': 3.6.1
   '@types/chrome': 0.0.210
+  '@types/lodash': ^4.14.191
   '@types/node': 18.11.18
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
   '@types/webextension-polyfill': ^0.10.0
   autoprefixer: ^10.4.13
+  lodash: ^4.17.21
   plasmo: 0.65.3
   postcss: ^8.4.21
   prettier: 2.8.3
@@ -17,12 +18,12 @@ specifiers:
   swr: ^2.0.4
   tailwindcss: ^3.2.7
   typescript: 4.9.4
+  webext-bridge: ^5.0.5
   webextension-polyfill: ^0.10.0
   zustand: ^4.3.5
 
 dependencies:
-  '@plasmohq/messaging': 0.1.4_react@18.2.0
-  plasmo: 0.65.3_gjpyg5imi5mt2gbvkmn3a4dr7m
+  plasmo: 0.65.3_caz4rp5f2m5b5pfnyfvfyyugpi
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   zustand: 4.3.5_react@18.2.0
@@ -30,16 +31,19 @@ dependencies:
 devDependencies:
   '@plasmohq/prettier-plugin-sort-imports': 3.6.1_prettier@2.8.3
   '@types/chrome': 0.0.210
+  '@types/lodash': 4.14.191
   '@types/node': 18.11.18
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
   '@types/webextension-polyfill': 0.10.0
   autoprefixer: 10.4.13_postcss@8.4.21
+  lodash: 4.17.21
   postcss: 8.4.21
   prettier: 2.8.3
   swr: 2.0.4_react@18.2.0
   tailwindcss: 3.2.7_postcss@8.4.21
   typescript: 4.9.4
+  webext-bridge: 5.0.5
   webextension-polyfill: 0.10.0
 
 packages:
@@ -1441,7 +1445,7 @@ packages:
       nullthrows: 1.1.1
     dev: false
 
-  /@plasmohq/consolidate/0.17.0_biqbaboplfbrettd7655fr4n2y:
+  /@plasmohq/consolidate/0.17.0_pvnihi4muhoy7kenlmiyxwzuqy:
     resolution: {integrity: sha512-Na8imBnvzYPtzkK+9Uv9hPZ/oJti/0jgiQWD222SHxHw2QCVuR4KzslxXCy/rS8gGluSiTs1BGVvc3d2O6aJCA==}
     engines: {node: '>= 0.10.0'}
     peerDependencies:
@@ -1586,23 +1590,13 @@ packages:
         optional: true
     dependencies:
       bluebird: 3.7.2
+      lodash: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@plasmohq/init/0.6.0:
     resolution: {integrity: sha512-qoSRgQI5+IPBA3II7GDnc45bRycOZa7V7Gb/VrbE+ifXOplzyvdl7DWgH1OmUgzAoNtXcMcqUHILhhrTpX3PPw==}
-    dev: false
-
-  /@plasmohq/messaging/0.1.4_react@18.2.0:
-    resolution: {integrity: sha512-B51Hft6SBYu8oHq0X24/DTFGodzDcZfHeUWG3xNJmCcrBMlgUY1dctIQfLmrJWsaJA13nX3q3ek78SfsTdmyLA==}
-    peerDependencies:
-      react: ^16.8.6 || ^17 || ^18
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /@plasmohq/parcel-bundler/0.4.6:
@@ -1618,7 +1612,7 @@ packages:
       nullthrows: 1.1.1
     dev: false
 
-  /@plasmohq/parcel-config/0.31.5_gjpyg5imi5mt2gbvkmn3a4dr7m:
+  /@plasmohq/parcel-config/0.31.5_caz4rp5f2m5b5pfnyfvfyyugpi:
     resolution: {integrity: sha512-okbM99jeSxgHbecyMv+Va+yLlChvTa0kw/MY3iRgGDUkaX7xy3NfxT7S44WHTwuARGApITgzShHyvNpZvgYVJQ==}
     dependencies:
       '@parcel/config-default': 2.8.3_2dqjxujgcancinq7vgq5cpolwy
@@ -1651,7 +1645,7 @@ packages:
       '@plasmohq/parcel-transformer-inline-css': 0.3.1
       '@plasmohq/parcel-transformer-manifest': 0.13.9
       '@plasmohq/parcel-transformer-svelte3': 0.4.3
-      '@plasmohq/parcel-transformer-vue3': 0.3.5_biqbaboplfbrettd7655fr4n2y
+      '@plasmohq/parcel-transformer-vue3': 0.3.5_pvnihi4muhoy7kenlmiyxwzuqy
     transitivePeerDependencies:
       - '@swc/core'
       - arc-templates
@@ -1832,7 +1826,7 @@ packages:
       '@parcel/utils': 2.8.3
     dev: false
 
-  /@plasmohq/parcel-transformer-vue3/0.3.5_biqbaboplfbrettd7655fr4n2y:
+  /@plasmohq/parcel-transformer-vue3/0.3.5_pvnihi4muhoy7kenlmiyxwzuqy:
     resolution: {integrity: sha512-up0x41Eh0WYwJxUMD/JATy3M0l1kEB2KrD8cRIQ+K6wXgcJxX6RZ88TjyG1fqvvEjPfaDHlESTsyq52TNbJzpg==}
     engines: {parcel: '>= 2.7.0'}
     dependencies:
@@ -1842,7 +1836,7 @@ packages:
       '@parcel/source-map': 2.1.1
       '@parcel/types': 2.8.3_@parcel+core@2.8.3
       '@parcel/utils': 2.8.3
-      '@plasmohq/consolidate': 0.17.0_biqbaboplfbrettd7655fr4n2y
+      '@plasmohq/consolidate': 0.17.0_pvnihi4muhoy7kenlmiyxwzuqy
       '@vue/compiler-sfc': 3.2.45
       nullthrows: 1.1.1
       semver: 7.3.8
@@ -2117,6 +2111,10 @@ packages:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: false
 
+  /@types/lodash/4.14.191:
+    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
+    dev: true
+
   /@types/node/18.11.18:
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
     dev: true
@@ -2149,6 +2147,10 @@ packages:
 
   /@types/webextension-polyfill/0.10.0:
     resolution: {integrity: sha512-If4EcaHzYTqcbNMp/FdReVdRmLL/Te42ivnJII551bYjhX19bWem5m14FERCqdJA732OloGuxCRvLBvcMGsn4A==}
+    dev: true
+
+  /@types/webextension-polyfill/0.8.3:
+    resolution: {integrity: sha512-GN+Hjzy9mXjWoXKmaicTegv3FJ0WFZ3aYz77Wk8TMp1IY3vEzvzj1vnsa0ggV7vMI1i+PUxe4qqnIJKCzf9aTg==}
     dev: true
 
   /@vue/compiler-core/3.2.45:
@@ -3994,7 +3996,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: false
 
   /log-symbols/5.1.0:
     resolution: {integrity: sha512-l0x2DvrW294C9uDCoQe1VSU4gf529FkSZ6leBl4TiqZH/e+0R7hSfHQBNut2mNygDgHwvYHfFLn6Oxb3VWj2rA==}
@@ -4162,6 +4163,11 @@ packages:
       object-assign: 4.1.1
       thenify-all: 1.6.0
     dev: false
+
+  /nanoevents/6.0.2:
+    resolution: {integrity: sha512-FRS2otuFcPPYDPYViNWQ42+1iZqbXydinkRHTHFxrF4a1CpBfmydR9zkI44WSXAXCyPrkcGtPk5CnpW6Y3lFKQ==}
+    engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
+    dev: true
 
   /nanoid/3.3.4:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
@@ -4414,7 +4420,7 @@ packages:
     engines: {node: '>= 6'}
     dev: false
 
-  /plasmo/0.65.3_gjpyg5imi5mt2gbvkmn3a4dr7m:
+  /plasmo/0.65.3_caz4rp5f2m5b5pfnyfvfyyugpi:
     resolution: {integrity: sha512-RM5iwKw2gQfoaRxCMd7qktZxGiIlie44hDVzgD86QFF3kz04KCc4hWlwXKh/MbjEJdEYuTvg/rxt2L1kY9W8wg==}
     hasBin: true
     dependencies:
@@ -4424,7 +4430,7 @@ packages:
       '@parcel/package-manager': 2.8.3_@parcel+core@2.8.3
       '@parcel/watcher': 2.1.0
       '@plasmohq/init': 0.6.0
-      '@plasmohq/parcel-config': 0.31.5_gjpyg5imi5mt2gbvkmn3a4dr7m
+      '@plasmohq/parcel-config': 0.31.5_caz4rp5f2m5b5pfnyfvfyyugpi
       archiver: 5.3.1
       buffer: 6.0.3
       chalk: 5.2.0
@@ -4889,6 +4895,13 @@ packages:
       upper-case-first: 2.0.2
     dev: false
 
+  /serialize-error/9.1.1:
+    resolution: {integrity: sha512-6uZQLGyUkNA4N+Zii9fYukmNu9PEA1F5rqcwXzN/3LtBjwl2dFBbVZ1Zyn08/CGkB4H440PIemdOQBt1Wvjbrg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      type-fest: 2.19.0
+    dev: true
+
   /sharp/0.31.1:
     resolution: {integrity: sha512-GR8M1wBwOiFKLkm9JPun27OQnNRZdHfSf9VwcdZX6UrRmM1/XnOrLFTF0GAil+y/YK4E6qcM/ugxs80QirsHxg==}
     engines: {node: '>=14.15.0'}
@@ -5197,6 +5210,10 @@ packages:
     resolution: {integrity: sha512-qsdtZH+vMoCARQtyod4imc2nIJwg9Cc7lPRrw9CzF8ZKR0khdr8+2nX80PBhET3tcyTtJDxAffGh2rXH4tyU8A==}
     dev: false
 
+  /tiny-uid/1.1.2:
+    resolution: {integrity: sha512-0beRFXR+fv4C40ND2PqgNjq6iyB1dKXciKJjslLw0kPYCcR82aNd2b+Tt2yy06LimIlvtoehgvrm/fUZCutSfg==}
+    dev: true
+
   /tmp/0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
     engines: {node: '>=0.6.0'}
@@ -5297,7 +5314,6 @@ packages:
   /type-fest/2.19.0:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
-    dev: false
 
   /type-fest/3.6.1:
     resolution: {integrity: sha512-htXWckxlT6U4+ilVgweNliPqlsVSSucbxVexRYllyMVJDtf5rTjv6kF/s+qAd4QSL1BZcnJPEJavYBPQiWuZDA==}
@@ -5379,8 +5395,22 @@ packages:
     resolution: {integrity: sha512-DEAoo25RfSYMuTGc9vPJzZcZullwIqRDSI9LOy+fkCJPi6hykCnfKaXTuPBDuXAUcqHXyOgFtHNp/kB2FjYHbw==}
     dev: false
 
+  /webext-bridge/5.0.5:
+    resolution: {integrity: sha512-STCv6pLfQtUHmZQ96Tmov+CrdGjjc08xG6o/VH7TlDvchAPmXEG7faPdHfIzkcs0qp0sedDkq7oDzXAei19vtw==}
+    dependencies:
+      '@types/webextension-polyfill': 0.8.3
+      nanoevents: 6.0.2
+      serialize-error: 9.1.1
+      tiny-uid: 1.1.2
+      webextension-polyfill: 0.9.0
+    dev: true
+
   /webextension-polyfill/0.10.0:
     resolution: {integrity: sha512-c5s35LgVa5tFaHhrZDnr3FpQpjj1BB+RXhLTYUxGqBVN460HkbM8TBtEqdXWbpTKfzwCcjAZVF7zXCYSKtcp9g==}
+    dev: true
+
+  /webextension-polyfill/0.9.0:
+    resolution: {integrity: sha512-LTtHb0yR49xa9irkstDxba4GATDAcDw3ncnFH9RImoFwDlW47U95ME5sn5IiQX2ghfaECaf6xyXM8yvClIBkkw==}
     dev: true
 
   /webidl-conversions/4.0.2:
