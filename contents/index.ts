@@ -14,7 +14,7 @@ const _onScrollHandler = () => {
   })
 }
 
-const onScrollHandler = debounce(throttle(_onScrollHandler, 150), 200)
+const onScrollHandler = throttle(_onScrollHandler, 50)
 
 onMessage("startSyncForTab", () => {
   window.addEventListener("scroll", onScrollHandler)
@@ -24,17 +24,21 @@ onMessage("stopSyncForTab", () => {
   window.removeEventListener("scroll", onScrollHandler)
 })
 
+const afterApplyScroll = debounce(() => {
+  scrolling = false
+}, 200)
+
 onMessage("syncScrollPositionForTab", (message) => {
   const { scrollYPercent } = message.data
 
   scrolling = true
 
+  console.log("scrolling to", scrollYPercent)
+
   window.scrollTo({
     top: scrollYPercent * document.body.scrollHeight,
-    behavior: "smooth"
+    behavior: "auto"
   })
 
-  window.setTimeout(() => {
-    scrolling = false
-  }, 200)
+  afterApplyScroll()
 })
