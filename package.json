@@ -39,7 +39,6 @@
       "https://*/*"
     ],
     "permissions": [
-      "webNavigation",
       "tabs",
       "activeTab"
     ]
