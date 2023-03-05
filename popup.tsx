@@ -1,5 +1,5 @@
 import cx from "classnames"
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import useSWR from "swr"
 import useSWRMutation from "swr/mutation"
 import { sendMessage } from "webext-bridge"
@@ -8,6 +8,23 @@ import browser from "webextension-polyfill"
 import "./style.css"
 
 function AboutPage({ onClose }: { onClose: () => void }): JSX.Element {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault()
+        e.stopPropagation()
+
+        onClose()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [])
+
   return (
     <div className="absolute top-0 left-0 flex flex-col w-screen h-screen p-4 overflow-auto text-sm text-gray-700 bg-white">
       {/* Close button */}
