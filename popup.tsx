@@ -245,7 +245,8 @@ function IndexPopup() {
           style={{
             minWidth: 250,
             width: 250,
-            maxHeight: 300
+            maxHeight: 300,
+            minHeight: 250
           }}
           className="flex flex-col flex-1 gap-1.5 p-1 overflow-auto">
           {/* No tabs found */}
@@ -312,7 +313,7 @@ function IndexPopup() {
         <div className="flex justify-center">
           {syncTabIds.length === 0 && (
             <button
-              className="flex-1 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 disabled:opacity-50"
+              className="flex-1 px-4 py-2 font-bold text-white bg-blue-500 hover:bg-blue-700 disabled:opacity-50"
               onClick={startSync}
               disabled={isSyncing || !atLeastTwoSelection}>
               {!atLeastTwoSelection
@@ -325,7 +326,7 @@ function IndexPopup() {
 
           {isSynced && (
             <button
-              className="flex-1 px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
+              className="flex-1 px-4 py-2 font-bold text-white bg-red-500 hover:bg-red-700"
               onClick={stopSync}
               disabled={isMutating}>
               {isMutating ? "Stopping..." : "Stop"}
