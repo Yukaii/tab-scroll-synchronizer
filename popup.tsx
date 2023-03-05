@@ -321,7 +321,7 @@ function IndexPopup() {
               className="flex-1 px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
               onClick={stopSync}
               disabled={isMutating}>
-              {isMutating ? "Breaking..." : "Break"}
+              {isMutating ? "Stopping..." : "Stop"}
             </button>
           )}
         </div>
