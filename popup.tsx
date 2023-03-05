@@ -31,6 +31,7 @@ function IndexPopup() {
       }
     }
   )
+  const isSynced = syncTabIds.length > 0
 
   const { trigger: stopSync, isMutating } = useSWRMutation(
     "stopSync",
@@ -75,6 +76,12 @@ function IndexPopup() {
 
   const sorter = useCallback(
     (a: browser.Tabs.Tab, b: browser.Tabs.Tab) => {
+      // in sync state, show checked tabs first
+      if (isSynced) {
+        if (checkState[a.id] && !checkState[b.id]) return -1
+        if (!checkState[a.id] && checkState[b.id]) return 1
+      }
+
       if (a.id === recentTabId) return -1
       if (b.id === recentTabId) return 1
 
@@ -86,7 +93,7 @@ function IndexPopup() {
 
       return 0
     },
-    [recentTabId, recentTabDomain]
+    [recentTabId, recentTabDomain, isSynced, checkState]
   )
 
   const tabs = useMemo(() => {
@@ -101,9 +108,6 @@ function IndexPopup() {
       )
     })
   }, [rawTabs, search, checkState, sorter])
-
-  const isSynced = syncTabIds.length > 0
-  // Get sync state from background
 
   return (
     <div className="flex flex-col">
