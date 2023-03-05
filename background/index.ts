@@ -63,7 +63,16 @@ onMessage("syncScrollPosition", (message) => {
   })
 })
 
-const maxRecentTabs = 3
+onMessage("getState", () => {
+  const state = store.getState()
+
+  return {
+    syncTabIds: state.syncTabIds,
+    recentTabIds: state.recentTabIds
+  }
+})
+
+const MAX_RECENT_TABS = 3
 
 browser.tabs.onActivated.addListener(function (activeInfo) {
   const { tabId } = activeInfo
@@ -74,7 +83,7 @@ browser.tabs.onActivated.addListener(function (activeInfo) {
 
   const recentTabIds = state.recentTabIds
 
-  state.setRecentTabIds([tabId, ...recentTabIds].slice(0, maxRecentTabs))
+  state.setRecentTabIds([tabId, ...recentTabIds].slice(0, MAX_RECENT_TABS))
 })
 
 browser.tabs.onRemoved.addListener(function (tabId) {
@@ -89,14 +98,5 @@ browser.tabs.onRemoved.addListener(function (tabId) {
     stopSyncForTabs(state.syncTabIds)
 
     state.setSyncTabIds([])
-  }
-})
-
-onMessage("getState", () => {
-  const state = store.getState()
-
-  return {
-    syncTabIds: state.syncTabIds,
-    recentTabIds: state.recentTabIds
   }
 })
