@@ -69,7 +69,7 @@ let recentTabIds: number[] = []
 browser.tabs.onActivated.addListener(function (activeInfo) {
   const { tabId } = activeInfo
 
-  console.log("onActivated", tabId)
+  console.debug("onActivated", tabId)
 
   recentTabIds = [tabId, ...recentTabIds].slice(0, maxRecentTabs)
 })

@@ -33,7 +33,7 @@ onMessage("syncScrollPositionForTab", (message) => {
 
   scrolling = true
 
-  console.log("scrolling to", scrollYPercent)
+  console.debug("scrolling to", scrollYPercent)
 
   window.scrollTo({
     top: scrollYPercent * document.body.scrollHeight,
