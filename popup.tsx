@@ -77,7 +77,7 @@ function AboutPage({ onClose }: { onClose: () => void }): JSX.Element {
         </li>
 
         <li>
-          Idea and Logo Design:{" "}
+          Idea and Icon Design:{" "}
           <a
             href="https://linktr.ee/mashbean"
             target="_blank"
