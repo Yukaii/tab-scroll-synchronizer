@@ -1,33 +1,21 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+# Tab Scroll Synchronizer
 
-## Getting Started
+## Description
 
-First, run the development server:
+This extension synchronizes the scroll position of multiple tabs.
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+## Usage
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+To start using this extension, follow these steps:
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+1. Open multiple tabs in different windows and align them side by side to ensure they are the same height.
+2. Click the extension icon.
+3. Select the tabs you want to synchronize.
+4. Click the "Sync" button.
+5. Scroll the tabs!
 
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
+To end the synchronization of tabs, click the extension icon once more and select the "Stop" button.
 
-## Making production build
+## License
 
-Run the following:
-
-```bash
-pnpm build
-# or
-npm run build
-```
-
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
-
-## Submit to the webstores
-
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+MIT
