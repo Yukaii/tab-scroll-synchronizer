@@ -74,6 +74,21 @@ browser.tabs.onActivated.addListener(function (activeInfo) {
   recentTabIds = [tabId, ...recentTabIds].slice(0, maxRecentTabs)
 })
 
+browser.tabs.onRemoved.addListener(function (tabId) {
+  console.debug("onRemoved", tabId)
+
+  recentTabIds = recentTabIds.filter((id) => id !== tabId)
+
+  const state = store.getState()
+
+  if (state.syncTabIds.length && state.syncTabIds.includes(tabId)) {
+    // stop sync for all tabs
+    stopSyncForTabs(state.syncTabIds)
+
+    state.setSyncTabIds([])
+  }
+})
+
 onMessage("getState", () => {
   const state = store.getState()
 
