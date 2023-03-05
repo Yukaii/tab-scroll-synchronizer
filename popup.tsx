@@ -308,7 +308,11 @@ function IndexPopup() {
               className="flex-1 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 disabled:opacity-50"
               onClick={startSync}
               disabled={isSyncing || !atLeastTwoSelection}>
-              {isSyncing ? "Syncing..." : "Sync"}
+              {!atLeastTwoSelection
+                ? "Select at least 2 tabs to sync"
+                : isSyncing
+                ? "Syncing..."
+                : "Sync"}
             </button>
           )}
 
