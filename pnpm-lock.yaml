@@ -9,6 +9,7 @@ specifiers:
   '@types/react-dom': 18.0.10
   '@types/webextension-polyfill': ^0.10.0
   autoprefixer: ^10.4.13
+  classnames: ^2.3.2
   lodash: ^4.17.21
   plasmo: 0.65.3
   postcss: ^8.4.21
@@ -37,6 +38,7 @@ devDependencies:
   '@types/react-dom': 18.0.10
   '@types/webextension-polyfill': 0.10.0
   autoprefixer: 10.4.13_postcss@8.4.21
+  classnames: 2.3.2
   lodash: 4.17.21
   postcss: 8.4.21
   prettier: 2.8.3
@@ -2567,6 +2569,10 @@ packages:
     resolution: {integrity: sha512-p3KULyQg4S7NIHixdwbGX+nFHkoBiA4YQmyWtjb8XngSKV124nJmRysgAeujbUVb15vh+RvFUfCPqU7rXk+hZg==}
     engines: {node: '>=6.0'}
     dev: false
+
+  /classnames/2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
+    dev: true
 
   /cli-cursor/4.0.0:
     resolution: {integrity: sha512-VGtlMu3x/4DOtIUwEkRezxUZ2lBacNJCHash0N0WeZDBS+7Ux1dm3XWAgWYxLJFMMdOeXMHXorshEFhbMSGelg==}

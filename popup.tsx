@@ -1,3 +1,4 @@
+import cx from "classnames"
 import { useCallback, useMemo, useState } from "react"
 import useSWR from "swr"
 import useSWRMutation from "swr/mutation"
@@ -11,6 +12,8 @@ function IndexPopup() {
     return browser.tabs.query({ pinned: false })
   })
   const [checkState, setCheckState] = useState<Record<number, boolean>>({})
+  const atLeastTwoSelection =
+    Object.values(checkState).filter((v) => v).length >= 2
   const [search, setSearch] = useState("")
   const {
     data: { syncTabIds = [], recentTabIds = [] } = {},
@@ -44,6 +47,7 @@ function IndexPopup() {
   const { trigger: startSync, isMutating: isSyncing } = useSWRMutation(
     "startSync",
     async () => {
+      if (!atLeastTwoSelection) return
       const tabIds = Object.keys(checkState)
         .filter((id) => checkState[Number(id)])
         .map(Number)
@@ -58,6 +62,10 @@ function IndexPopup() {
   )
 
   const handleCheck = useCallback((id: number) => {
+    if (isSynced) {
+      return
+    }
+
     setCheckState((prev) => ({ ...prev, [id]: !prev[id] }))
   }, [])
 
@@ -94,13 +102,14 @@ function IndexPopup() {
     })
   }, [rawTabs, search, checkState, sorter])
 
+  const isSynced = syncTabIds.length > 0
   // Get sync state from background
 
   return (
-    <div className="flex flex-col pt-1">
+    <div className="flex flex-col">
       <input
         type="text"
-        className="w-full p-1 outline-none ring-1 mb-1"
+        className="w-full px-2 py-3 mb-1 font-mono text-sm outline-none ring-1"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Filter tabs by title or url"
@@ -114,26 +123,53 @@ function IndexPopup() {
           maxHeight: 400,
           overflow: "auto"
         }}
-        className="p-1 flex flex-col gap-1 flex-1">
+        className="flex flex-col flex-1 gap-1 p-1">
         {/* No tabs found */}
         {tabs.length === 0 && (
-          <div className="text-center text-gray-500">No tabs found</div>
+          <div className="py-3 font-mono text-sm text-center text-gray-500 select-none">
+            No tabs found
+          </div>
         )}
 
         {tabs.map((tab) => {
+          const itemChecked = checkState[tab.id]
+
           return (
             <label key={tab.id} onClick={() => handleCheck(tab.id)}>
-              <div className="w-full flex py-1 hover:bg-zinc-100 px-1">
+              <div
+                className={cx(
+                  "flex w-full px-1 py-1 hover:bg-zinc-100 items-center",
+                  {
+                    "bg-zinc-100": itemChecked && isSynced
+                  }
+                )}>
                 <input
                   type="checkbox"
                   className="mr-2"
-                  checked={checkState[tab.id]}
+                  checked={itemChecked}
                   onChange={() => handleCheck(tab.id)}
+                  disabled={isSynced}
                 />
 
                 <img src={tab.favIconUrl} className="w-4 h-4 mr-2" />
+
+                {
+                  // Show red dotted synced icon
+                  itemChecked && isSynced && (
+                    <span
+                      className="block mr-2 rounded-full bg-rose-600 animate-pulse"
+                      style={{
+                        width: 8,
+                        height: 8,
+                        minWidth: 8,
+                        minHeight: 8
+                      }}
+                    />
+                  )
+                }
+
                 <span
-                  className="text-sm whitespace-nowrap text-ellipsis overflow-hidden select-none"
+                  className="overflow-hidden text-sm select-none whitespace-nowrap text-ellipsis"
                   title={tab.title}>
                   {tab.title}
                 </span>
@@ -147,16 +183,16 @@ function IndexPopup() {
       <div className="flex justify-center">
         {syncTabIds.length === 0 && (
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-1"
+            className="flex-1 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 disabled:opacity-50"
             onClick={startSync}
-            disabled={isSyncing}>
+            disabled={isSyncing || !atLeastTwoSelection}>
             {isSyncing ? "Syncing..." : "Sync"}
           </button>
         )}
 
-        {syncTabIds.length > 0 && (
+        {isSynced && (
           <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex-1"
+            className="flex-1 px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
             onClick={stopSync}
             disabled={isMutating}>
             {isMutating ? "Breaking..." : "Break"}
