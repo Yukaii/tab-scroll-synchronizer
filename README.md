@@ -1,10 +1,6 @@
 # Tab Scroll Synchronizer
 
-
-
-https://user-images.githubusercontent.com/4230968/222955422-5c554406-1c66-4fa4-aca4-9630ba294a42.mp4
-
-
+<https://user-images.githubusercontent.com/4230968/222955422-5c554406-1c66-4fa4-aca4-9630ba294a42.mp4>
 
 ## Description
 
