@@ -1,8 +1,8 @@
 {
   "name": "tab-scroll-synchronizer",
   "displayName": "Tab scroll synchronizer",
-  "version": "0.0.1",
-  "description": "A basic Plasmo extension.",
+  "version": "1.0.0",
+  "description": "Synchronize scroll position of tabs",
   "author": "yukai",
   "scripts": {
     "dev": "plasmo dev",
