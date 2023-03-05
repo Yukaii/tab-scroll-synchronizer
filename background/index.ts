@@ -63,23 +63,26 @@ onMessage("syncScrollPosition", (message) => {
   })
 })
 
-let maxRecentTabs = 3
-let recentTabIds: number[] = []
+const maxRecentTabs = 3
 
 browser.tabs.onActivated.addListener(function (activeInfo) {
   const { tabId } = activeInfo
 
+  const state = store.getState()
+
   console.debug("onActivated", tabId)
 
-  recentTabIds = [tabId, ...recentTabIds].slice(0, maxRecentTabs)
+  const recentTabIds = state.recentTabIds
+
+  state.setRecentTabIds([tabId, ...recentTabIds].slice(0, maxRecentTabs))
 })
 
 browser.tabs.onRemoved.addListener(function (tabId) {
+  const state = store.getState()
   console.debug("onRemoved", tabId)
 
-  recentTabIds = recentTabIds.filter((id) => id !== tabId)
-
-  const state = store.getState()
+  const recentTabIds = state.recentTabIds
+  state.setRecentTabIds(recentTabIds.filter((id) => id !== tabId))
 
   if (state.syncTabIds.length && state.syncTabIds.includes(tabId)) {
     // stop sync for all tabs
@@ -94,6 +97,6 @@ onMessage("getState", () => {
 
   return {
     syncTabIds: state.syncTabIds,
-    recentTabIds
+    recentTabIds: state.recentTabIds
   }
 })
