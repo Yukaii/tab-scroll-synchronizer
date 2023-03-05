@@ -26,7 +26,7 @@ function AboutPage({ onClose }: { onClose: () => void }): JSX.Element {
   }, [])
 
   return (
-    <div className="absolute top-0 left-0 flex flex-col w-screen h-screen p-4 overflow-auto text-sm text-gray-700 bg-white">
+    <div className="absolute top-0 left-0 flex flex-col w-screen h-screen p-4 overflow-auto text-sm text-gray-700 bg-white bg-opacity-70 backdrop-blur-[5px] break-words">
       {/* Close button */}
       <span className="absolute cursor-pointer right-4 top-4" onClick={onClose}>
         <svg
@@ -39,7 +39,7 @@ function AboutPage({ onClose }: { onClose: () => void }): JSX.Element {
         </svg>
       </span>
 
-      <h1 className="text-2xl font-bold">Tab Scroll Synchronizer</h1>
+      <h1 className="pr-4 text-lg font-bold">Tab Scroll Synchronizer</h1>
 
       <p className="mt-4">
         Tab Scroll Synchronizer is a browser extension that allows you to
@@ -64,34 +64,38 @@ function AboutPage({ onClose }: { onClose: () => void }): JSX.Element {
         .
       </p>
 
-      <p className="mt-4">
-        Author:{" "}
-        <a
-          href="https://yukai.tw"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 underline">
-          Yukai
-        </a>
-        <br />
-        The idea is from{" "}
-        <a
-          href="https://linktr.ee/mashbean"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 underline">
-          Mashbean
-        </a>
-        <br />
-        License: MIT
-      </p>
+      <ul className="mt-4 ml-4 list-disc list-outside">
+        <li>
+          Author:{" "}
+          <a
+            href="https://yukai.tw"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 underline">
+            Yukai
+          </a>
+        </li>
+
+        <li>
+          Idea and Logo Design:{" "}
+          <a
+            href="https://linktr.ee/mashbean"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 underline">
+            Mashbean
+          </a>
+        </li>
+
+        <li>License: MIT</li>
+      </ul>
 
       <div className="mt-4">
         <a
           href="https://github.com/Yukaii/tab-scroll-synchronizer"
           target="_blank"
           rel="noopener noreferrer">
-          <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded">
+          <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600">
             Learn more
           </button>
         </a>
@@ -211,10 +215,10 @@ function IndexPopup() {
         <div className="flex items-center border-b border-gray-200">
           <input
             type="text"
-            className="w-full px-2 py-3 mb-1 font-mono text-sm outline-none"
+            className="w-full px-2 py-1.5 mb-1 text-sm outline-none"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Filter tabs by title or url"
+            placeholder="Filter tabs"
           />
 
           {/* About with question mark */}
@@ -241,14 +245,12 @@ function IndexPopup() {
           style={{
             minWidth: 250,
             width: 250,
-            height: 400,
-            maxHeight: 400,
-            overflow: "auto"
+            maxHeight: 300
           }}
-          className="flex flex-col flex-1 gap-1 p-1">
+          className="flex flex-col flex-1 gap-1.5 p-1 overflow-auto">
           {/* No tabs found */}
           {tabs.length === 0 && (
-            <div className="py-3 font-mono text-sm text-center text-gray-500 select-none">
+            <div className="py-3 text-sm text-center text-gray-500 select-none">
               No tabs found
             </div>
           )}
@@ -257,10 +259,10 @@ function IndexPopup() {
             const itemChecked = checkState[tab.id]
 
             return (
-              <label key={tab.id} onClick={() => handleCheck(tab.id)}>
+              <label key={tab.id}>
                 <div
                   className={cx(
-                    "flex w-full px-1 py-1 hover:bg-zinc-100 items-center",
+                    "flex w-full px-2 py-1 hover:bg-zinc-200 items-center rounded cursor-pointer",
                     {
                       "bg-zinc-100": itemChecked && isSynced
                     }
@@ -269,7 +271,12 @@ function IndexPopup() {
                     type="checkbox"
                     className="mr-2"
                     checked={itemChecked}
-                    onChange={() => handleCheck(tab.id)}
+                    onChange={(e) => {
+                      setCheckState((state) => ({
+                        ...state,
+                        [tab.id]: e.target.checked
+                      }))
+                    }}
                     disabled={isSynced}
                   />
 
@@ -309,7 +316,7 @@ function IndexPopup() {
               onClick={startSync}
               disabled={isSyncing || !atLeastTwoSelection}>
               {!atLeastTwoSelection
-                ? "Select at least 2 tabs to sync"
+                ? "Select at least 2 tabs"
                 : isSyncing
                 ? "Syncing..."
                 : "Sync"}
