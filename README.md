@@ -1,5 +1,9 @@
 # Tab Scroll Synchronizer
 
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/mnfmkjjofbgocdpdhfchonaefmnikbgc)](https://chrome.google.com/webstore/detail/tab-scroll-synchronizer/mnfmkjjofbgocdpdhfchonaefmnikbgc)
+
+Or on [Edge Add-ons Store](https://microsoftedge.microsoft.com/addons/detail/opbbcjepjlgkgjoljcfgmhpilmcbnlli)
+
 <https://user-images.githubusercontent.com/4230968/222955422-5c554406-1c66-4fa4-aca4-9630ba294a42.mp4>
 
 ## Description
