@@ -162,14 +162,6 @@ function IndexPopup() {
     }
   )
 
-  const handleCheck = useCallback((id: number) => {
-    if (isSynced) {
-      return
-    }
-
-    setCheckState((prev) => ({ ...prev, [id]: !prev[id] }))
-  }, [])
-
   const recentTabId = recentTabIds[1]
   const recentTab = rawTabs.find((tab) => tab.id === recentTabId)
   const recentTabDomain = recentTab ? new URL(recentTab.url).hostname : ""
