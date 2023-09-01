@@ -1,7 +1,7 @@
 {
   "name": "tab-scroll-synchronizer",
   "displayName": "Tab scroll synchronizer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Synchronize scroll position of tabs",
   "author": "yukai",
   "scripts": {
